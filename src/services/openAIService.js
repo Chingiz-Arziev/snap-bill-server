@@ -11,7 +11,8 @@ const processTextToJson = async (text) => {
     messages: [
       {
         role: "system",
-        content: `Ты преобразуешь текст из чека в структурированный JSON...`,
+        content: `Преобразуй текст чека в JSON. Все блюда в массив items с полями id, name, quantity, price. Служебную информацию в отдельный массив: total, services_fee (percentage, amount), discount_fee (percentage, amount)`,
+        // content: `Ты преобразуешь текст из чека в структурированный JSON. Все блюда в чеке засунь в массив items. у каждого блюдоа есть id с 0 и до конца блюд, наименования блюда по ключу name, количество по ключу quantity, цена по ключу price, так же засунь в отдельный массив служебную информацию, обсщий счет по ключу total, процент обслуживания в обьект services_fee с полями percentage & amount. а так же процент дисконта в обьект discount_fee с полями percentage & amount`,
       },
       {
         role: "user",

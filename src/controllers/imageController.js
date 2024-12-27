@@ -5,10 +5,16 @@ const { detectText } = require("../services/visionService")
 const { processTextToJson } = require("../services/openAIService")
 const { removeFile } = require("../utils/fileUtils")
 
-const rooms = require("../services/socketService").rooms
+const { rooms } = require("../services/socketService")
 
 const uploadImage = async (req, res) => {
-  const filePath = req.file.path
+  console.log("Request file:", req.file) // Debugging line to check if file is received
+  const filePath = req.file ? req.file.path : null
+  if (!filePath) {
+    console.error("No file uploaded")
+    return res.status(400).json({ error: "No file uploaded" })
+  }
+
   try {
     const text = await detectText(filePath)
     const structuredData = await processTextToJson(text)
