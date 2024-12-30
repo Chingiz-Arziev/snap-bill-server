@@ -9,24 +9,27 @@ const { setupSocket } = require("./services/socketService")
 const app = express()
 const server = http.createServer(app)
 const io = new Server(server, {
-  cors: { origin: "*" },
+  origin: "*",
+  credentials: true,
 })
 
-// Middleware
-app.use(cors({ origin: "http://localhost:5173" }))
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// Routes
 app.get("/", (req, res) => {
-  res.send("Hello world") // Перенесли корневой маршрут сюда
+  res.send("Hello world")
 })
+
 app.use("/api", apiRoutes)
 
-// WebSocket setup
-setupSocket(io) // Передаем объект io в setupSocket
+setupSocket(io)
 
-// Error handling middleware
 app.use(errorHandler)
 
 module.exports = { app, server }
