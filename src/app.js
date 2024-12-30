@@ -4,7 +4,7 @@ const { Server } = require("socket.io")
 const cors = require("cors")
 const apiRoutes = require("./routes/apiRoutes")
 const errorHandler = require("./middlewares/errorHandler")
-const { setupSocket } = require("./services/socketService") // Импорт setupSocket
+const { setupSocket } = require("./services/socketService")
 
 const app = express()
 const server = http.createServer(app)
@@ -18,6 +18,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Routes
+app.get("/", (req, res) => {
+  res.send("Hello world") // Перенесли корневой маршрут сюда
+})
 app.use("/api", apiRoutes)
 
 // WebSocket setup
