@@ -26,6 +26,10 @@ app.get("/", (req, res) => {
   res.send("Hello world")
 })
 
+app.get("/api/test", (req, res) => {
+  res.json({ message: "Server is working" })
+})
+
 app.use("/api", apiRoutes)
 
 setupSocket(io)
