@@ -9,16 +9,21 @@ const { setupSocket } = require("./services/socketService")
 const app = express()
 const server = http.createServer(app)
 const io = new Server(server, {
-  origin: "*",
-  credentials: true,
+  cors: {
+    origin: ["*", "http://localhost:5173", "http://35.226.117.95:5000"],
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
 })
 
 app.use(
   cors({
-    origin: "*",
+    origin: ["*", "http://localhost:5173", "http://35.226.117.95:5000"],
+    methods: ["GET", "POST"],
     credentials: true,
   })
 )
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
