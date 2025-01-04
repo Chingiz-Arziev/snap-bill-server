@@ -10,7 +10,7 @@ const app = express()
 const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: ["*"],
+    origin: ["http://34.107.68.9"],
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -18,7 +18,7 @@ const io = new Server(server, {
 
 app.use(
   cors({
-    origin: ["*"],
+    origin: ["http://34.107.68.9"],
     methods: ["GET", "POST"],
     credentials: true,
   })
