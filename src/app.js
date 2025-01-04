@@ -10,11 +10,7 @@ const app = express()
 const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: [
-      "http://localhost:5173",
-      "http://35.226.117.95:5000",
-      "https://pay-me-demo.netlify.app",
-    ],
+    origin: ["*"],
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -22,11 +18,7 @@ const io = new Server(server, {
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://35.226.117.95:5000",
-      "https://pay-me-demo.netlify.app",
-    ],
+    origin: ["*"],
     methods: ["GET", "POST"],
     credentials: true,
   })
