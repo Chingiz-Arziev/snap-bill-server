@@ -1,16 +1,13 @@
 const { GoogleAuth } = require("google-auth-library")
 const path = require("path")
 
-// Путь к JSON файлу с учетными данными сервисного аккаунта
-const KEYFILEPATH = path.resolve(__dirname, "../../keys/pay-me-current.json")
+const { GOOGLE_APPLICATION_CREDENTIALS } = require("../config.env")
 
-// Создание экземпляра GoogleAuth
 const auth = new GoogleAuth({
-  keyFile: KEYFILEPATH,
+  keyFile: GOOGLE_APPLICATION_CREDENTIALS,
   scopes: ["https://www.googleapis.com/auth/cloud-platform"],
 })
 
-// Функция для получения токена доступа
 const getAccessToken = async () => {
   const client = await auth.getClient()
   const accessToken = await client.getAccessToken()
