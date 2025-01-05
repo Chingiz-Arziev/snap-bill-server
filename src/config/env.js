@@ -28,7 +28,7 @@ const path = require("path")
 
 const GOOGLE_APPLICATION_CREDENTIALS = path.resolve(
   __dirname,
-  "../../keys/pay-me-445906-20376f17a821.json"
+  "../../keys/pay-me-445906-53799612402b.json"
 )
 const OPENAI_API_KEY =
   "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"
