@@ -38,6 +38,7 @@ app.use("/api", apiRoutes)
 setupSocket(io)
 
 console.log("Key file path:", process.env.GOOGLE_APPLICATION_CREDENTIALS)
+console.log("Key")
 
 app.use(errorHandler)
 
