@@ -6,6 +6,19 @@ const apiRoutes = require("./routes/apiRoutes")
 const errorHandler = require("./middlewares/errorHandler")
 const { setupSocket } = require("./services/socketService")
 
+const { getAccessToken } = require("./googleAuth")
+
+const testAccessToken = async () => {
+  try {
+    const accessToken = await getAccessToken()
+    console.log("Access Token:", accessToken)
+  } catch (error) {
+    console.error("Ошибка при получении токена доступа:", error)
+  }
+}
+
+testAccessToken()
+
 const app = express()
 const server = http.createServer(app)
 const io = new Server(server, {
