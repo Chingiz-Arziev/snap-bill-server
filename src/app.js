@@ -6,7 +6,7 @@ const apiRoutes = require("./routes/apiRoutes")
 const errorHandler = require("./middlewares/errorHandler")
 const { setupSocket } = require("./services/socketService")
 
-const { getAccessToken } = require("./googleAuth")
+const { getAccessToken } = require("./services/googleAuthService")
 
 const testAccessToken = async () => {
   try {
