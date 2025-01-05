@@ -10,7 +10,7 @@ const KEYFILEPATH = path.resolve(
 // Создание экземпляра GoogleAuth
 const auth = new GoogleAuth({
   keyFile: KEYFILEPATH,
-  scopes: ["https://www.googleapis.com/auth/cloud-platform"],
+  targetAudience: "https://oauth2.googleapis.com/token",
 })
 
 // Функция для получения токена доступа
