@@ -42,7 +42,7 @@ setupSocket(io)
 app.use(errorHandler)
 
 const fs = require("fs")
-const { GOOGLE_APPLICATION_CREDENTIALS } = require("../config/env")
+const { GOOGLE_APPLICATION_CREDENTIALS } = require("config/env")
 
 try {
   const credentials = fs.readFileSync(GOOGLE_APPLICATION_CREDENTIALS, "utf8")
