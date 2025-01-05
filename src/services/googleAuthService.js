@@ -1,7 +1,8 @@
 const { GoogleAuth } = require("google-auth-library")
 
 // Путь к JSON файлу с учетными данными сервисного аккаунта
-const KEYFILEPATH = "../../keys/pay-me-445906-20376f17a821.json"
+const KEYFILEPATH =
+  "/home/chingiz_arziev/server/Pay-me-server/src/config/service-account-key.json"
 
 // Создание экземпляра GoogleAuth
 const auth = new GoogleAuth({

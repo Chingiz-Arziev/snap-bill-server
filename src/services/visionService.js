@@ -1,6 +1,6 @@
 const vision = require("@google-cloud/vision")
 const fs = require("fs")
-const { GOOGLE_APPLICATION_CREDENTIALS } = require("../config/env")
+const { GOOGLE_APPLICATION_CREDENTIALS, OPENAI_API_KEY } = require("./config")
 
 // Проверка наличия переменной окружения
 if (!GOOGLE_APPLICATION_CREDENTIALS) {
