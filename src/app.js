@@ -1,3 +1,5 @@
+require("dotenv").config() // Загружает переменные окружения из .env
+
 const http = require("http")
 const express = require("express")
 const { Server } = require("socket.io")
@@ -34,6 +36,8 @@ app.get("/", (req, res) => {
 app.use("/api", apiRoutes)
 
 setupSocket(io)
+
+console.log("Key file path:", process.env.GOOGLE_APPLICATION_CREDENTIALS)
 
 app.use(errorHandler)
 
