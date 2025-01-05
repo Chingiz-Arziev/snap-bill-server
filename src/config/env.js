@@ -1,10 +1,19 @@
 require("dotenv").config()
 
-if (
-  !process.env.GOOGLE_APPLICATION_CREDENTIALS ||
-  !process.env.OPENAI_API_KEY
-) {
-  throw new Error("Не все переменные окружения заданы.")
+const missingEnvVars = []
+
+if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+  missingEnvVars.push("GOOGLE_APPLICATION_CREDENTIALS")
+}
+
+if (!process.env.OPENAI_API_KEY) {
+  missingEnvVars.push("OPENAI_API_KEY")
+}
+
+if (missingEnvVars.length > 0) {
+  throw new Error(
+    `Не все переменные окружения заданы: ${missingEnvVars.join(", ")}`
+  )
 }
 
 module.exports = {
