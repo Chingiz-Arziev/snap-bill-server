@@ -38,4 +38,5 @@ const OPENAI_API_KEY =
 module.exports = {
   GOOGLE_APPLICATION_CREDENTIALS,
   OPENAI_API_KEY,
+  PORT,
 }
