@@ -41,14 +41,4 @@ setupSocket(io)
 
 app.use(errorHandler)
 
-const fs = require("fs")
-const { GOOGLE_APPLICATION_CREDENTIALS } = require("./config/env")
-
-try {
-  const credentials = fs.readFileSync(GOOGLE_APPLICATION_CREDENTIALS, "utf8")
-  console.log("Credentials loaded successfully")
-} catch (error) {
-  console.error("Error loading credentials:", error.message)
-}
-
 module.exports = { app, server }
