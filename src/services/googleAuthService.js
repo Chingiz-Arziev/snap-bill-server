@@ -1,8 +1,7 @@
 const { GoogleAuth } = require("google-auth-library")
-const { GOOGLE_APPLICATION_CREDENTIALS } = require("../config/env")
 
 // Путь к JSON файлу с учетными данными сервисного аккаунта
-const KEYFILEPATH = GOOGLE_APPLICATION_CREDENTIALS
+const KEYFILEPATH = "../../keys/pay-me-445906-20376f17a821.json"
 
 // Создание экземпляра GoogleAuth
 const auth = new GoogleAuth({
