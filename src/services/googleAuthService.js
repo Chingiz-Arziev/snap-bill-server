@@ -1,7 +1,7 @@
 const { GoogleAuth } = require("google-auth-library")
 const path = require("path")
 
-const { GOOGLE_APPLICATION_CREDENTIALS } = require("../config.env")
+const { GOOGLE_APPLICATION_CREDENTIALS } = require("../config/env")
 
 const auth = new GoogleAuth({
   keyFile: GOOGLE_APPLICATION_CREDENTIALS,
