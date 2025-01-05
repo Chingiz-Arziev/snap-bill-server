@@ -1,6 +1,6 @@
 const vision = require("@google-cloud/vision")
 const fs = require("fs")
-const { getAccessToken } = require("../../keys/pay-me-445906-53799612402b.json")
+const { getAccessToken } = require("./googleAuthService")
 
 const client = new vision.ImageAnnotatorClient()
 
