@@ -1,4 +1,5 @@
 const rooms = {}
+const guestCounters = {}
 
 const setupSocket = (io) => {
   io.on("connection", (socket) => {
@@ -34,22 +35,36 @@ const setupSocket = (io) => {
 
     socket.on("joinRoom", ({ roomId, username }, callback) => {
       if (!rooms[roomId]) {
-        console.warn(`Попытка подключения к несуществующей комнате: ${roomId}`)
-        callback({ success: false, error: "Комната не существует" })
-        return
+        console.log(`Попытка подключения к несуществующей комнате: ${roomId}`)
+        return callback({ success: false, error: "Комната не существует" })
       }
 
       const existingUser = rooms[roomId].users.find(
         (user) => user.id === socket.id
       )
       if (!existingUser) {
-        rooms[roomId].users.push({ id: socket.id, username })
-        console.log(`${username} присоединился к комнате ${roomId}`)
+        // Назначаем имя пользователя в зависимости от количества людей в комнате
+        let userName
+        if (rooms[roomId].users.length === 0) {
+          userName = "Чингиз"
+        } else if (rooms[roomId].users.length === 1) {
+          userName = "Эльнура"
+        } else {
+          userName = `Гость-${rooms[roomId].users.length}`
+        }
+
+        // Добавляем пользователя в комнату
+        rooms[roomId].users.push({ id: socket.id, username: userName })
+        console.log(`${userName} присоединился к комнате ${roomId}`)
       }
 
+      // Присоединяем сокет к комнате
       socket.join(roomId)
 
+      // Уведомляем всех в комнате о новом пользователе
       io.to(roomId).emit("userJoined", { users: rooms[roomId].users })
+
+      // Возвращаем данные комнаты через callback
       callback({
         success: true,
         roomData: rooms[roomId].billData,
