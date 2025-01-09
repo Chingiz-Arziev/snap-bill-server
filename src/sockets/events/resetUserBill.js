@@ -23,25 +23,20 @@ const resetUserBill = (io, socket, rooms) => {
     // Увеличиваем общий счет комнаты
     room.billData.total += amountToReset
 
-    // Восстанавливаем изначальные количества позиций
+    // Восстанавливаем только добавленные пользователем позиции
     if (user.addedItems) {
       for (const itemId in user.addedItems) {
         const item = room.billData.items.find(
           (item) => item.id === parseInt(itemId)
         )
         if (item) {
+          // Увеличиваем количество только для добавленных пользователем позиций
           item.quantity += user.addedItems[itemId]
         }
       }
+      // Очищаем добавленные позиции для пользователя
       user.addedItems = {}
     }
-
-    // Убедитесь, что изначальное количество не изменяется
-    room.billData.items.forEach((item) => {
-      if (item.originalQuantity !== undefined) {
-        item.quantity = item.originalQuantity
-      }
-    })
 
     // Отправляем обновленные данные клиенту
     io.to(roomId).emit("userBillUpdated", {
