@@ -1,3 +1,6 @@
+const rooms = require("./events/rooms")
+
+const assignUsername = require("./events/assignUsername")
 const createRoom = require("./events/createRoom")
 const joinRoom = require("./events/joinRoom")
 const updateUserBill = require("./events/updateUserBill")
@@ -8,11 +11,12 @@ const setupSocket = (io) => {
   io.on("connection", (socket) => {
     console.log("Новый пользователь подключился:", socket.id)
 
-    createRoom(io, socket)
-    joinRoom(io, socket)
-    updateUserBill(io, socket)
-    updateBill(io, socket)
-    disconnect(io, socket)
+    assignUsername(io, socket, rooms)
+    createRoom(io, socket, rooms)
+    joinRoom(io, socket, rooms)
+    updateUserBill(io, socket, rooms)
+    updateBill(io, socket, rooms)
+    disconnect(io, socket, rooms)
   })
 }
 

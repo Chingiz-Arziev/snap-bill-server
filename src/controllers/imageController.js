@@ -2,11 +2,11 @@ const { v4: uuidv4 } = require("uuid")
 const { detectText } = require("../services/visionService")
 const { processTextToJson } = require("../services/openAIService")
 const { removeFile } = require("../utils/fileUtils")
-const { rooms } = require("../services/socketService")
+const rooms = require("../sockets/events/rooms")
 
 const uploadImage = async (req, res) => {
-  console.log("Request file:", req.file) // Debugging line to check if file is received
   const filePath = req.file ? req.file.path : null
+
   if (!filePath) {
     console.error("No file uploaded")
     return res.status(400).json({ error: "No file uploaded" })
@@ -15,6 +15,8 @@ const uploadImage = async (req, res) => {
   try {
     const text = await detectText(filePath)
     const structuredData = await processTextToJson(text)
+
+    console.log(rooms)
 
     const roomId = uuidv4()
     rooms[roomId] = structuredData

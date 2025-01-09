@@ -1,6 +1,4 @@
-const rooms = require("./rooms")
-
-const disconnect = (io, socket) => {
+const disconnect = (io, socket, rooms) => {
   socket.on("disconnect", () => {
     console.log(`Пользователь ${socket.id} отключился`)
 

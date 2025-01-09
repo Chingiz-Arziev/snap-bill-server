@@ -1,6 +1,4 @@
-const rooms = require("./rooms")
-
-const joinRoom = (io, socket) => {
+const joinRoom = (io, socket, rooms) => {
   socket.on("joinRoom", ({ roomId, username }, callback) => {
     if (!rooms[roomId]) {
       console.log(`Попытка подключения к несуществующей комнате: ${roomId}`)
@@ -23,7 +21,11 @@ const joinRoom = (io, socket) => {
         userName = `Гость-${userCount}`
       }
 
-      rooms[roomId].users.push({ id: socket.id, username: userName })
+      rooms[roomId].users.push({
+        id: socket.id,
+        username: userName,
+        userBill: 0,
+      })
       console.log(`${userName} присоединился к комнате ${roomId}`)
     }
 

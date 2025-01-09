@@ -1,6 +1,4 @@
-const rooms = require("./rooms")
-
-const updateBill = (io, socket) => {
+const updateBill = (io, socket, rooms) => {
   socket.on("updateBill", ({ roomId, updatedBill }) => {
     if (!rooms[roomId]) {
       console.warn(

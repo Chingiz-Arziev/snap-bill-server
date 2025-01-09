@@ -1,6 +1,4 @@
-const rooms = require("./rooms")
-
-const updateUserBill = (io, socket) => {
+const updateUserBill = (io, socket, rooms) => {
   socket.on(
     "updateUserBill",
     ({ roomId, userId, itemPrice, discountPercentage }) => {

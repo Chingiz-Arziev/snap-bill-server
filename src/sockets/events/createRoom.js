@@ -1,6 +1,4 @@
-const rooms = require("./rooms")
-
-const createRoom = (io, socket) => {
+const createRoom = (io, socket, rooms) => {
   socket.on("createRoom", ({ roomId, username, billData }, callback) => {
     if (rooms[roomId]) {
       console.warn(`Комната ${roomId} уже существует`)
