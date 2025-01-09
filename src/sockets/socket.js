@@ -5,6 +5,7 @@ const createRoom = require("./events/createRoom")
 const joinRoom = require("./events/joinRoom")
 const updateUserBill = require("./events/updateUserBill")
 const updateBill = require("./events/updateBill")
+const resetUserBill = require("./events/resetUserBill")
 const disconnect = require("./events/disconnect")
 
 const setupSocket = (io) => {
@@ -16,6 +17,7 @@ const setupSocket = (io) => {
     joinRoom(io, socket, rooms)
     updateUserBill(io, socket, rooms)
     updateBill(io, socket, rooms)
+    resetUserBill(io, socket, rooms)
     disconnect(io, socket, rooms)
   })
 }

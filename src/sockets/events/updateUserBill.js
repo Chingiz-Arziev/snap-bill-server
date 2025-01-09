@@ -28,6 +28,15 @@ const updateUserBill = (io, socket, rooms) => {
       user.userBill = (user.userBill || 0) + totalAmount
       room.billData.total -= itemPrice
 
+      // Отслеживание количества добавленных элементов
+      if (!user.addedItems) {
+        user.addedItems = {}
+      }
+      if (!user.addedItems[itemPrice]) {
+        user.addedItems[itemPrice] = 0
+      }
+      user.addedItems[itemPrice] += 1
+
       io.to(roomId).emit("userBillUpdated", {
         users: room.users,
         items: room.billData.items,
