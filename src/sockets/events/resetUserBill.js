@@ -16,29 +16,34 @@ const resetUserBill = (io, socket, rooms) => {
       return
     }
 
+    // Сбрасываем счет пользователя
     const amountToReset = user.userBill || 0
     user.userBill = 0
 
+    // Увеличиваем общий счет комнаты
     room.billData.total += amountToReset
 
+    // Восстанавливаем изначальные количества позиций
     if (user.addedItems) {
-      for (const itemPrice in user.addedItems) {
+      for (const itemId in user.addedItems) {
         const item = room.billData.items.find(
-          (item) => item.price === parseFloat(itemPrice)
+          (item) => item.id === parseInt(itemId)
         )
         if (item) {
-          item.quantity += user.addedItems[itemPrice]
+          item.quantity += user.addedItems[itemId]
         }
       }
       user.addedItems = {}
     }
 
-    console.log("Sending userBillUpdated event:", {
-      users: room.users,
-      items: room.billData.items,
-      total: room.billData.total,
+    // Убедитесь, что изначальное количество не изменяется
+    room.billData.items.forEach((item) => {
+      if (item.originalQuantity !== undefined) {
+        item.quantity = item.originalQuantity
+      }
     })
 
+    // Отправляем обновленные данные клиенту
     io.to(roomId).emit("userBillUpdated", {
       users: room.users,
       items: room.billData.items,

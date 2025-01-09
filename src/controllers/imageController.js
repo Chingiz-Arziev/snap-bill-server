@@ -16,8 +16,6 @@ const uploadImage = async (req, res) => {
     const text = await detectText(filePath)
     const structuredData = await processTextToJson(text)
 
-    console.log(rooms)
-
     const roomId = uuidv4()
     rooms[roomId] = structuredData
 

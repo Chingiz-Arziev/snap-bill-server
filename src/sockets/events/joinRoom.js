@@ -1,4 +1,12 @@
 const joinRoom = (io, socket, rooms) => {
+  const normalizeItems = (items) => {
+    return items.map((item) => ({
+      ...item,
+      originalQuantity: item.quantity, // Сохраняем изначальное количество
+      unitPrice: item.quantity > 0 ? item.price / item.quantity : item.price, // Рассчитываем цену за единицу один раз
+    }))
+  }
+
   socket.on("joinRoom", ({ roomId, username }, callback) => {
     if (!rooms[roomId]) {
       console.log(`Попытка подключения к несуществующей комнате: ${roomId}`)
@@ -27,6 +35,13 @@ const joinRoom = (io, socket, rooms) => {
         userBill: 0,
       })
       console.log(`${userName} присоединился к комнате ${roomId}`)
+    }
+
+    // Нормализуем данные billData.items при каждом подключении
+    if (rooms[roomId].billData && rooms[roomId].billData.items) {
+      rooms[roomId].billData.items = normalizeItems(
+        rooms[roomId].billData.items
+      )
     }
 
     socket.join(roomId)
