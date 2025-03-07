@@ -12,7 +12,7 @@ const app = express()
 const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: ["34.107.68.9"],
+    origin: ["http://localhost:5173", "http://192.168.0.105:5173"],
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -20,15 +20,23 @@ const io = new Server(server, {
 
 app.use(
   cors({
-    origin: ["34.107.68.9"],
+    origin: [
+      "http://localhost:8000/process-check",
+      "http://192.168.0.105:5173",
+      "http://localhost:5173",
+    ],
     methods: ["GET", "POST"],
     credentials: true,
   })
 )
 
-app.get("/", (req, res) => {
-  res.send("Hello world")
-})
+// app.use(
+//   cors({
+//     origin: ["http://localhost:5173"],
+//     methods: ["GET", "POST"],
+//     credentials: true,
+//   })
+// )
 
 app.use("/api", apiRoutes)
 

@@ -1,6 +1,7 @@
+const axios = require("axios")
+const FormData = require("form-data")
+const fs = require("fs")
 const { v4: uuidv4 } = require("uuid")
-const { detectText } = require("../services/visionService")
-const { processTextToJson } = require("../services/openAIService")
 const { removeFile } = require("../utils/fileUtils")
 const rooms = require("../sockets/events/rooms")
 
@@ -13,8 +14,22 @@ const uploadImage = async (req, res) => {
   }
 
   try {
-    const text = await detectText(filePath)
-    const structuredData = await processTextToJson(text)
+    // Подготовка данных для запроса
+    const formData = new FormData()
+    formData.append("file", fs.createReadStream(filePath))
+
+    // Отправка изображения в FastAPI
+    const response = await axios.post(
+      "http://0.0.0.0:8000/process-check",
+      formData,
+      {
+        headers: {
+          ...formData.getHeaders(),
+        },
+      }
+    )
+
+    const structuredData = response.data.data
 
     const roomId = uuidv4()
     rooms[roomId] = structuredData
